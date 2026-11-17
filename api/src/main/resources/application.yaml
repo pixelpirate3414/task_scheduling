@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/task_scheduler}
+    username: ${DB_USERNAME:task_scheduler}
+    password: ${DB_PASSWORD:task_scheduler}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
