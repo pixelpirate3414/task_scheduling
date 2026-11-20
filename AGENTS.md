@@ -14,6 +14,8 @@ This repository contains a Gradle Kotlin DSL Java project under `api/`. The appl
 
 ## Build and tests
 
+Do not run builds or tests unless the user explicitly asks you to.
+
 Run Gradle from `api/` using the checked-in wrapper:
 
 ```powershell
