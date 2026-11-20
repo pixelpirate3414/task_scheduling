@@ -3,6 +3,7 @@ package com.taskscheduller.api.controller;
 import com.taskscheduller.api.dto.request.AuthRequest;
 import com.taskscheduller.api.dto.response.AuthResponse;
 import com.taskscheduller.api.service.AuthService;
+import com.taskscheduller.api.controller.docs.AuthControllerDocs;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthControllerDocs {
 	private final AuthService authService;
 
 	@PostMapping("/login")

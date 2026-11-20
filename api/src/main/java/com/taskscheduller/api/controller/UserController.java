@@ -6,6 +6,7 @@ import com.taskscheduller.api.dto.response.UserResponse;
 import com.taskscheduller.api.mapper.UserMapper;
 import com.taskscheduller.api.repository.UserRepository;
 import com.taskscheduller.api.service.AuthService;
+import com.taskscheduller.api.controller.docs.UserControllerDocs;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerDocs {
 	private final AuthService authService;
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;

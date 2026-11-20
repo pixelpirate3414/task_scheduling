@@ -1,6 +1,6 @@
 import java.util.Properties
 
-val postgresCredentialsFile = layout.buildDirectory.file("postgres/credentials.properties")
+val postgresCredentialsFile = layout.buildDirectory.file("credentials/credentials.properties")
 
 val postgresVersion = 18
 

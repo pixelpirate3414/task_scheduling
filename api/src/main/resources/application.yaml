@@ -13,3 +13,7 @@ spring:
       ddl-auto: validate
   config:
     import: optional:file:.env[.properties]
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
