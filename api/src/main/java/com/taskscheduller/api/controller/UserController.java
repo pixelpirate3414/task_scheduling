@@ -3,9 +3,8 @@ package com.taskscheduller.api.controller;
 import com.taskscheduller.api.dto.request.AuthRequest;
 import com.taskscheduller.api.dto.response.AuthResponse;
 import com.taskscheduller.api.dto.response.UserResponse;
-import com.taskscheduller.api.mapper.UserMapper;
-import com.taskscheduller.api.repository.UserRepository;
 import com.taskscheduller.api.service.AuthService;
+import com.taskscheduller.api.service.UserService;
 import com.taskscheduller.api.controller.docs.UserControllerDocs;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,18 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController implements UserControllerDocs {
 	private final AuthService authService;
-	private final UserRepository userRepository;
-	private final UserMapper userMapper;
+	private final UserService userService;
 
 	@PostMapping
 	public AuthResponse register(@Valid @RequestBody AuthRequest request) {
-		return authService.register(request);
+		return authService.register(request.email(), request.password());
 	}
 
 	@GetMapping
 	public UserResponse getCurrentUser(Authentication authentication) {
-		var user = userRepository.findByEmail(authentication.getName())
-				.orElseThrow(() -> new IllegalStateException("Authenticated user was not found"));
-		return userMapper.toResponse(user);
+		return userService.getByEmail(authentication.getName());
 	}
 }

@@ -1,8 +1,8 @@
 package com.taskscheduller.api.service.impl;
 
-import com.taskscheduller.api.dto.request.AuthRequest;
 import com.taskscheduller.api.dto.response.AuthResponse;
 import com.taskscheduller.api.entity.User;
+import com.taskscheduller.api.exception.UserAlreadyRegisteredException;
 import com.taskscheduller.api.repository.UserRepository;
 import com.taskscheduller.api.security.JwtService;
 import com.taskscheduller.api.service.AuthService;
@@ -23,21 +23,22 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	@Transactional
-	public AuthResponse register(AuthRequest request) {
-		if (userRepository.findByEmail(request.email()).isPresent()) {
-			throw new IllegalArgumentException("Email is already registered");
+	public AuthResponse register(String email, String password) {
+		if (userRepository.findByEmail(email).isPresent()) {
+			throw new UserAlreadyRegisteredException(email);
 		}
 
-		userRepository.save(new User(request.email(), passwordEncoder.encode(request.password())));
+		userRepository.save(new User(email, passwordEncoder.encode(password)));
 
-		return login(request);
+		return login(email, password);
 	}
 
 	@Override
-	public AuthResponse login(AuthRequest request) {
+	public AuthResponse login(String email, String password) {
 		var authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(request.email(), request.password())
+				new UsernamePasswordAuthenticationToken(email, password)
 		);
+
 		return new AuthResponse(jwtService.generateToken(authentication));
 	}
 }

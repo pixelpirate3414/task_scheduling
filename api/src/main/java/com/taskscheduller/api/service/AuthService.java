@@ -4,6 +4,6 @@ import com.taskscheduller.api.dto.request.AuthRequest;
 import com.taskscheduller.api.dto.response.AuthResponse;
 
 public interface AuthService {
-	AuthResponse register(AuthRequest request);
-	AuthResponse login(AuthRequest request);
+	AuthResponse register(String email, String password);
+	AuthResponse login(String email, String password);
 }

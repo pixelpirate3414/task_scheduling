@@ -19,6 +19,6 @@ public class AuthController implements AuthControllerDocs {
 
 	@PostMapping("/login")
 	public AuthResponse login(@Valid @RequestBody AuthRequest request) {
-		return authService.login(request);
+		return authService.login(request.email(), request.password());
 	}
 }
