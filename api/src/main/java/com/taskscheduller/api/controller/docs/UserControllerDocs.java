@@ -21,6 +21,7 @@ public interface UserControllerDocs {
 	@ApiResponse(responseCode = "200", description = "Пользователь зарегистрирован",
 			content = @Content(schema = @Schema(implementation = AuthResponse.class)))
 	@ApiResponse(responseCode = "400", description = "Некорректный запрос", content = @Content)
+	@ApiResponse(responseCode = "409", description = "Пользователь существует", content = @Content)
 	@PostMapping
 	AuthResponse register(@Valid @RequestBody AuthRequest request);
 
