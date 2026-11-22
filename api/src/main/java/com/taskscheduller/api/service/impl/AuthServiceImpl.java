@@ -30,7 +30,11 @@ public class AuthServiceImpl implements AuthService {
 
 		userRepository.save(new User(email, passwordEncoder.encode(password)));
 
-		return login(email, password);
+		var authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(email, password)
+		);
+
+		return new AuthResponse(jwtService.generateToken(authentication));
 	}
 
 	@Override

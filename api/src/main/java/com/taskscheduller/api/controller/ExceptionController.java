@@ -1,11 +1,13 @@
 package com.taskscheduller.api.controller;
 
 import com.taskscheduller.api.dto.response.ExceptionResponse;
+import com.taskscheduller.api.exception.InvalidTaskStateException;
 import com.taskscheduller.api.exception.TaskNotFoundException;
 import com.taskscheduller.api.exception.UserAlreadyRegisteredException;
 import com.taskscheduller.api.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +20,18 @@ public class ExceptionController {
 	public ResponseEntity<ExceptionResponse> handleTaskNotFound(
 			TaskNotFoundException exception, HttpServletRequest request) {
 		return response(HttpStatus.NOT_FOUND, exception.getMessage(), request);
+	}
+
+	@ExceptionHandler(InvalidTaskStateException.class)
+	public ResponseEntity<ExceptionResponse> handleInvalidTaskState(
+			InvalidTaskStateException exception, HttpServletRequest request) {
+		return response(HttpStatus.CONFLICT, exception.getMessage(), request);
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ExceptionResponse> handleDataIntegrityViolation(
+			InvalidTaskStateException exception, HttpServletRequest request) {
+		return response(HttpStatus.CONFLICT, exception.getMessage(), request);
 	}
 
 	@ExceptionHandler(UserNotFoundException.class)
@@ -51,7 +65,7 @@ public class ExceptionController {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionResponse> handleException(
 			Exception exception, HttpServletRequest request) {
-		return response(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), request);
+		return response(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request);
 	}
 
 	private ResponseEntity<ExceptionResponse> response(

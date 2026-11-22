@@ -1,5 +1,6 @@
 package com.taskscheduller.api.entity;
 
+import com.taskscheduller.api.exception.InvalidTaskStateException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -69,7 +70,7 @@ public class Task {
 
 	public void complete() {
 		if (this.status == TaskStatus.DONE) {
-			throw new IllegalStateException("Task has already been completed");
+			throw new InvalidTaskStateException("Task has already been completed");
 		}
 
 		this.status = TaskStatus.DONE;
@@ -78,7 +79,7 @@ public class Task {
 
 	public void reopen() {
 		if (this.status != TaskStatus.DONE) {
-			throw new IllegalStateException("Cannot reopen task");
+			throw new InvalidTaskStateException("Cannot reopen task");
 		}
 
 		this.status = TaskStatus.IN_PROGRESS;
