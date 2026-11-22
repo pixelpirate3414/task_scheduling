@@ -1,6 +1,7 @@
 package com.taskscheduller.api.controller;
 
 import com.taskscheduller.api.dto.response.ExceptionResponse;
+import com.taskscheduller.api.exception.TaskNotFoundException;
 import com.taskscheduller.api.exception.UserAlreadyRegisteredException;
 import com.taskscheduller.api.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ExceptionController {
+	@ExceptionHandler(TaskNotFoundException.class)
+	public ResponseEntity<ExceptionResponse> handleTaskNotFound(
+			TaskNotFoundException exception, HttpServletRequest request) {
+		return response(HttpStatus.NOT_FOUND, exception.getMessage(), request);
+	}
 
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<ExceptionResponse> handleUserNotFound(
