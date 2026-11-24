@@ -63,8 +63,7 @@ public class ExceptionController {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ExceptionResponse> handleException(
-			Exception exception, HttpServletRequest request) {
+	public ResponseEntity<ExceptionResponse> handleException(HttpServletRequest request) {
 		return response(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request);
 	}
 

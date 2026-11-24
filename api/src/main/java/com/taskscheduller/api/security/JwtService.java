@@ -31,7 +31,7 @@ public class JwtService {
         JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("task-scheduler-api")
+                .issuer("https://task-scheduler-api.local")
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(900))
                 .subject(authentication.getName())
