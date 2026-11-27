@@ -22,6 +22,14 @@ The system is organized as a set of independent services maintained in a monorep
 
 Each service owns its implementation details and should remain isolated from the internal implementation of other services.
 
+# Coding standards
+
+Read `CODING.md` before implementing or modifying Java code.
+
+The project-wide coding standards apply to all services.
+Service-specific `CODING.md` files may extend these standards
+with additional requirements.
+
 # Architecture Principles
 
 ## Service Boundaries
