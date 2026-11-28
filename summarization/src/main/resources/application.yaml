@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: summarization
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8500}
+  ai:
+    model:
+      chat: google-genai
+    google:
+      genai:
+        api-key: ${GOOGLE_GENAI_API_KEY}
+        chat:
+          model: ${GOOGLE_GENAI_MODEL:gemini-3.8-flash}
+          temperature: 0.2
+          response-mime-type: application/json
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      properties:
+        spring.json.use.type.headers: false
+    producer:
+      properties:
+        spring.json.add.type.headers: false
+
+app:
+  kafka:
+    topics:
+      rpc:
+        summarization-request: request.v1
+        summarization-response: response.v1
